@@ -7,11 +7,18 @@ end
 
 -- FRUITS
 
-function fruit_draw(fruit)
-	if not fruit.collected then
-		spr(fruit.spr, fruit.x, fruit.y, 1, 1)
+function fruit_draw(self)
+	if not self.collected then
+		spr(self.spr, self.x, self.y, 1, 1)
 	else
-		spr(fruit.collected_sprite, fruit.x, fruit.y, 1, 1)
+		spr(self.collected_sprite, self.x, self.y, 1, 1)
+	end
+end
+
+function fruit_update(self)
+	if not self.collected and not self.missed and current_runner.x > self.x + self.hit_w then
+		self.missed = true
+		create(invalid_ui, self.x, self.y)
 	end
 end
 
@@ -20,18 +27,21 @@ melon = new_type(53)
 melon.solid = false
 melon.collected_sprite = 54
 melon.draw = fruit_draw
+melon.update = fruit_update
 
 -- apple
 apple = new_type(21)
 apple.solid = false
 apple.collected_sprite = 22
 apple.draw = fruit_draw
+apple.update = fruit_update
 
 -- leak
 leak = new_type(37)
 leak.collected_sprite = 38
 leak.solid = false
 leak.draw = fruit_draw
+leak.update = fruit_update
 
 -- UI
 valid_ui = new_type(40)

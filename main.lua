@@ -9,6 +9,20 @@ function _init()
     init_level(level_1)
 end
 
+-- TODO
+-- visuals + feedback
+    -- background
+    -- tree on apple
+    -- clouds
+    -- animate for leak/melon
+    -- play rythme on screen ????
+
+--Ui
+ -- menu
+ -- level selection
+ -- scoring
+ -- level begining / end
+
 -- SFX
 -- jump 02 8-8
 -- catch 02 0-8
@@ -77,6 +91,16 @@ function draw_level()
     printable = current_runner.collected_counter
     printable = #objects
     -- UI
+    print_centered("❎ =>  ", 1, 21, 0)
+    print_centered("❎ =>  ", 0, 20, 7)
+    spr(melon.spr, cam.x + 76, cam.y + 18)
+    print_centered("⬇️ =>  ", 1, 31, 0)
+    print_centered("⬇️ =>  ", 0, 30, 7)
+    spr(leak.spr, cam.x + 76, cam.y + 28)
+    print_centered("🅾️ =>  ", 1, 41, 0)
+    print_centered("🅾️ =>  ", 0, 40, 7)
+    spr(apple.spr, cam.x + 76, cam.y + 39)
+
     print(printable, cam.x + 80, cam.y + 120, 0)
 end
 

@@ -6,19 +6,21 @@ runner.anim_time = 7
 runner.flr = true
 runner.jump_force = -3
 runner.gravity = 0.20
-
+runner.action_spr = 6
 
 function runner.init(self)
     self.speed_x = 1
-    self.state = 3
+    self.state = 1
     self.collected_counter = 0
+    self.end_anim_time = 0
 end
 
 function runner.update(self)
     local input_y = 0
 
     -- anim
-    if gtime%self.anim_time == 0 then
+    if gtime <= self.end_anim_time then self.spr = self.action_spr
+    elseif gtime%self.anim_time == 0 then
         self.spr = self.sprs[(self.spr + 1)%#self.sprs + 1]
     end
 
@@ -41,10 +43,32 @@ function runner.update(self)
     end
 
     -- harvest :)
-    local success = false 
+    -- can optimize
     if btnp(❎) then
+        local success = false
+        self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
-            if (o.base == leak or o.base == melon) and not o.collected and self:overlaps(o) then
+            if (o.base == melon) and not o.collected and self:overlaps(o) then
+                o.collected = true
+                spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
+                --sfx(2, -1, 0, 8)
+                self.collected_counter += 1
+                success = true
+                break
+            end
+        end
+        if success then
+            create(valid_ui, self.x, self.y)
+        else
+            create(invalid_ui, self.x, self.y)
+        end
+    end
+
+    if btnp(3) then
+        local success = false
+        self.end_anim_time = gtime + self.anim_time
+        for o in all(objects) do
+            if (o.base == leak) and not o.collected and self:overlaps(o) then
                 o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
                 --sfx(2, -1, 0, 8)
