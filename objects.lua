@@ -5,17 +5,31 @@ function rectangle.draw(self)
     rectfill(self.x, self.y, self.x + self.hit_w - 1, self.y + self.hit_h - 1, self.color)
 end
 
+function fruit_draw(fruit)
+	if not fruit.collected then
+		spr(fruit.spr, fruit.x, fruit.y, 1, 1)
+	else
+		spr(fruit.collected_sprite, fruit.x, fruit.y, 1, 1)
+	end
+end
+
 -- melon
-melon = new_type(38)
+melon = new_type(53)
 melon.solid = false
+melon.collected_sprite = 54
+melon.draw = fruit_draw
 
 -- apple
 apple = new_type(21)
 apple.solid = false
+apple.collected_sprite = 22
+apple.draw = fruit_draw
 
 -- leak
 leak = new_type(37)
+leak.collected_sprite = 38
 leak.solid = false
+leak.draw = fruit_draw
 
 -- particles
 

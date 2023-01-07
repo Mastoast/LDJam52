@@ -74,7 +74,8 @@ function draw_level()
         a:draw()
     end
 
-    printable = cam.x%128
+    printable = current_runner.collected_counter
+    --printable = #objects
     -- UI
     print(printable, cam.x + 80, cam.y + 120, 0)
 end

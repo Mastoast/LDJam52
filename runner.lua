@@ -11,6 +11,7 @@ runner.gravity = 0.20
 function runner.init(self)
     self.speed_x = 1
     self.state = 3
+    self.collected_counter = 0
 end
 
 function runner.update(self)
@@ -42,10 +43,11 @@ function runner.update(self)
     -- harvest :)
     if btnp(❎) then
         for o in all(objects) do
-            if (o.base == leak or o.base == melon or o.base == apple) and self:overlaps(o) then
-                o.destroyed = true
+            if (o.base == leak or o.base == melon or o.base == apple) and not o.collected and self:overlaps(o) then
+                o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
                 sfx(2, -1, 0, 8)
+                self.collected_counter += 1
                 break
             end
         end
