@@ -5,7 +5,7 @@ runner.sprs = {4, 5}
 runner.anim_time = 7
 runner.flr = true
 runner.jump_force = -3
-runner.gravity = 0.15
+runner.gravity = 0.20
 
 
 function runner.init(self)
@@ -33,7 +33,11 @@ function runner.update(self)
         sfx(2, -1, 8, 8)
     end
     -- gravity
-    self.speed_y += self.gravity
+    if self.speed_y > 0 then
+        self.speed_y += self.gravity*2.5
+    else
+        self.speed_y += self.gravity
+    end
 
     -- harvest :)
     if btnp(❎) then
