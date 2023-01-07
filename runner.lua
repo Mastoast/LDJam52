@@ -18,6 +18,8 @@ end
 function runner.update(self)
     local input_y = 0
 
+    -- if stat(56) == 0 then self.x =  end
+
     -- anim
     if gtime <= self.end_anim_time then self.spr = self.action_spr
     elseif gtime%self.anim_time == 0 then

@@ -16,6 +16,7 @@ end
     -- clouds
     -- animate for leak/melon
     -- play rythme on screen ????
+    -- doubler ui avec noir
 
 --Ui
  -- menu
@@ -67,7 +68,7 @@ function _draw()
 end
 
 function draw_level()
-    cls(12)
+    cls(1)
     
     -- camera
     if shake > 0 then
@@ -88,18 +89,10 @@ function draw_level()
         a:draw()
     end
 
-    printable = current_runner.collected_counter
-    printable = #objects
+    printable = stat(56)
+    -- printable = #objects
     -- UI
-    print_centered("❎ =>  ", 1, 21, 0)
-    print_centered("❎ =>  ", 0, 20, 7)
-    spr(melon.spr, cam.x + 76, cam.y + 18)
-    print_centered("⬇️ =>  ", 1, 31, 0)
-    print_centered("⬇️ =>  ", 0, 30, 7)
-    spr(leak.spr, cam.x + 76, cam.y + 28)
-    print_centered("🅾️ =>  ", 1, 41, 0)
-    print_centered("🅾️ =>  ", 0, 40, 7)
-    spr(apple.spr, cam.x + 76, cam.y + 39)
+
 
     print(printable, cam.x + 80, cam.y + 120, 0)
 end

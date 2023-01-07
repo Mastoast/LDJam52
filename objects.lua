@@ -59,6 +59,25 @@ invalid_ui.solid = false
 invalid_ui.life = 30
 invalid_ui.update = valid_ui.update
 
+text = new_type(0)
+text.solid = false
+text.life = 500
+text.text = ""
+
+function text.update(self)
+	self.life -= 1
+	if self.life <= 0 then self.y -= 1 end
+	if self.y < -1 and gtime%2 == 0 then self.destroyed = true end
+end
+
+function text.draw(self)
+	print(self.text, cam.x + self.x + 1, cam.y + self.y + 1, 0)
+	print(self.text, cam.x + self.x, cam.y + self.y, 7)
+	if self.spr then
+		spr(self.spr, cam.x + self.x + 2 + #self.text*4, cam.y + self.y - 2)
+	end
+end
+
 -- PARTICLES
 
 particles = {}
