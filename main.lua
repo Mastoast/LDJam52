@@ -12,6 +12,7 @@ end
 function init_level()
     objects = {}
     particles = {}
+    current_runner = create(runner, 16, 88)
     -- gen checkpoints
     -- for i=0, 127 do
     --     for y=0, 63 do
@@ -32,6 +33,8 @@ end
 function update_level()
     --
     shake = max(shake - 1)
+    --
+    cam.x = current_runner.x - 16
 
     -- freeze
     if freeze_time > 0 then
@@ -66,12 +69,13 @@ function _draw()
 
     -- draw objects
     for o in all(objects) do
+        printable = objects.type
         o:draw()
     end
 
     -- UI
     
-    --print(printable, cam.x + 80, cam.y + 120, 4)
+    print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 
