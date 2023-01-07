@@ -43,16 +43,26 @@ function runner.update(self)
     -- harvest :)
     if btnp(❎) then
         for o in all(objects) do
-            if (o.base == leak or o.base == melon or o.base == apple) and not o.collected and self:overlaps(o) then
+            if (o.base == leak or o.base == melon) and not o.collected and self:overlaps(o) then
                 o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
-                sfx(2, -1, 0, 8)
+                --sfx(2, -1, 0, 8)
                 self.collected_counter += 1
                 break
             end
         end
-        
+    end
 
+    if not self.flr then
+        for o in all(objects) do
+            if (o.base == apple) and not o.collected and self:overlaps(o) then
+                o.collected = true
+                spawn_particles(4 + rnd(3), 3, o.x, o.y, 8)
+                --sfx(2, -1, 0, 8)
+                self.collected_counter += 1
+                break
+            end
+        end
     end
 
     self:move_x(self.speed_x)

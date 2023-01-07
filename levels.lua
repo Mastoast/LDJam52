@@ -18,7 +18,7 @@ function init_level(level, debug_offset)
     local event_list_count = 0
     for event_list in all(level.events) do
         local y = event_list.y
-        local x_offset = level.event_offset*8 + event_list_count*8*127
+        local x_offset = level.event_offset*8 + event_list_count*8*128
         for i=event_list.x, 127 do
             if mget(i, y) == leak.spr then
                 create(leak, i*level.speed/2 + x_offset, ground_limit - leak.hit_h)
