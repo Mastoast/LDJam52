@@ -31,7 +31,7 @@ function runner.update(self)
     -- jump
     if self.flr and btnp(🅾️) then
         self.speed_y = self.jump_force
-        sfx(2, -1, 8, 8)
+        --sfx(2, -1, 8, 8)
     end
     -- gravity
     if self.speed_y > 0 then
@@ -41,6 +41,7 @@ function runner.update(self)
     end
 
     -- harvest :)
+    local success = false 
     if btnp(❎) then
         for o in all(objects) do
             if (o.base == leak or o.base == melon) and not o.collected and self:overlaps(o) then
@@ -48,8 +49,14 @@ function runner.update(self)
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
                 --sfx(2, -1, 0, 8)
                 self.collected_counter += 1
+                success = true
                 break
             end
+        end
+        if success then
+            create(valid_ui, self.x, self.y)
+        else
+            create(invalid_ui, self.x, self.y)
         end
     end
 
@@ -60,6 +67,7 @@ function runner.update(self)
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 8)
                 --sfx(2, -1, 0, 8)
                 self.collected_counter += 1
+                create(valid_ui, self.x, self.y)
                 break
             end
         end

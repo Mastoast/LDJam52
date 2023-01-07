@@ -75,7 +75,7 @@ function draw_level()
     end
 
     printable = current_runner.collected_counter
-    --printable = #objects
+    printable = #objects
     -- UI
     print(printable, cam.x + 80, cam.y + 120, 0)
 end

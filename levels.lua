@@ -14,6 +14,7 @@ function init_level(level, debug_offset)
     ground_limit = 96
     --
     current_runner = create(runner, 24 + debug_offset*8*32, 88)
+
     -- gen objects
     local event_list_count = 0
     for event_list in all(level.events) do

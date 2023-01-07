@@ -5,6 +5,8 @@ function rectangle.draw(self)
     rectfill(self.x, self.y, self.x + self.hit_w - 1, self.y + self.hit_h - 1, self.color)
 end
 
+-- FRUITS
+
 function fruit_draw(fruit)
 	if not fruit.collected then
 		spr(fruit.spr, fruit.x, fruit.y, 1, 1)
@@ -31,7 +33,23 @@ leak.collected_sprite = 38
 leak.solid = false
 leak.draw = fruit_draw
 
--- particles
+-- UI
+valid_ui = new_type(40)
+valid_ui.solid = false
+valid_ui.life = 30
+
+function valid_ui.update(self)
+	self.y -= 1 * gtime%2
+	self.life -= 1
+	if self.life == 0 then self.destroyed = true end
+end
+
+invalid_ui = new_type(56)
+invalid_ui.solid = false
+invalid_ui.life = 30
+invalid_ui.update = valid_ui.update
+
+-- PARTICLES
 
 particles = {}
 
