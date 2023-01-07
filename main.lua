@@ -9,19 +9,9 @@ function _init()
     init_level()
 end
 
-function init_level()
-    objects = {}
-    particles = {}
-    current_runner = create(runner, 16, 88)
-    -- gen checkpoints
-    -- for i=0, 127 do
-    --     for y=0, 63 do
-    --         if mget(i, y) == 4 then
-    --             create(checkpoint, i*8 + 4, y*8 + 4)
-    --         end
-    --     end
-    -- end
-end
+-- SFX
+-- jump 02 8-8
+-- catch 02 0-8
 
 function _update60()
     -- timers
@@ -34,7 +24,7 @@ function update_level()
     --
     shake = max(shake - 1)
     --
-    cam.x = current_runner.x - 16
+    cam.x = current_runner.x - 24
 
     -- freeze
     if freeze_time > 0 then
@@ -51,10 +41,18 @@ function update_level()
                 del(objects, o)
             end
         end
+
+        for a in all(particles) do
+            a:update()
+        end
     end
 end
 
 function _draw()
+    draw_level()
+end
+
+function draw_level()
     cls(12)
     
     -- camera
@@ -65,16 +63,19 @@ function _draw()
     end
 
     -- draw map
-    map(0, 0, 0, 0, 16, 16)
+    map(0, 0, flr(cam.x/8)*8 , 0, 32, 16, 1)
 
     -- draw objects
     for o in all(objects) do
-        printable = objects.type
         o:draw()
     end
 
+    for a in all(particles) do
+        a:draw()
+    end
+
+    printable = cam.x%128
     -- UI
-    
     print(printable, cam.x + 80, cam.y + 120, 0)
 end
 

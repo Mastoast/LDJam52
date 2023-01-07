@@ -5,11 +5,17 @@ function rectangle.draw(self)
     rectfill(self.x, self.y, self.x + self.hit_w - 1, self.y + self.hit_h - 1, self.color)
 end
 
--- watermelon
+-- melon
+melon = new_type(38)
+melon.solid = false
 
 -- apple
+apple = new_type(21)
+apple.solid = false
 
 -- leak
+leak = new_type(37)
+leak.solid = false
 
 -- particles
 
@@ -23,6 +29,20 @@ function spawn_particles(nb,s,x,y,c)
 	for i=1,flr(nb) do
         add(particles, make_particle(s,x,y,c))
 	end
+end
+
+function make_particle(s,x,y,c)
+	local p={
+		s=s or 1,
+		c=c or 7,
+		x=x,y=y,k=k,
+		t=0, t_max=16+flr(rnd(4)),
+		dx=rnd(2)-1,dy=-rnd(3),
+		ddy=0.05,
+		update=update_particle,
+		draw=draw_particle
+	}
+	return p
 end
 
 function draw_particle(a)

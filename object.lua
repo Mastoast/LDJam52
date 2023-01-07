@@ -92,16 +92,18 @@ function object.check_solid(self, ox, oy)
     oy = oy or 0
 
     -- map collisions
-    for i = flr((ox + self.x + self.hit_x) / 8),flr((ox + self.x + self.hit_x + self.hit_w - 1) / 8) do
-        for j = flr((oy + self.y + self.hit_y)/8),flr((oy + self.y + self.hit_y + self.hit_h - 1)/8) do
-            if self.color then
-                -- color-based collisions
-                if (fget(mget(i, j), 0)) then
-                    return true
-                end
-            end
-		end
-	end
+    -- for i = flr((ox + self.x + self.hit_x) / 8),flr((ox + self.x + self.hit_x + self.hit_w - 1) / 8) do
+    --     for j = flr((oy + self.y + self.hit_y)/8),flr((oy + self.y + self.hit_y + self.hit_h - 1)/8) do
+    --         if self.color then
+    --             -- color-based collisions
+    --             if (fget(mget(i, j), 0)) then
+    --                 return true
+    --             end
+    --         end
+	-- 	end
+	-- end
+
+    if oy + self.y + self.hit_h > ground_limit then return true end
 
     -- object collisions
     if not self.ghost then
@@ -111,13 +113,6 @@ function object.check_solid(self, ox, oy)
             end
         end
     end
-
-    -- border collisions
-    -- return
-    --     self.x + ox < 0 or
-    --     self.x + ox > 127 - self.hit_w or
-    --     self.y + oy > 127 - self.hit_h or
-    --     self.y + oy < 0
 
 end
 
