@@ -7,7 +7,7 @@ level_1.events = {{x = 0, y = 18}, {x = 0, y = 19}}
 level_1.event_offset = 64
 
 function init_level(level, debug_offset)
-    debug_offset = debug_offset or 2
+    debug_offset = debug_offset or 6
     gtime = 0
     objects = {}
     particles = {}
