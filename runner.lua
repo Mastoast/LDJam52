@@ -20,11 +20,24 @@ end
 function runner.update(self)
     local input_y = 0
 
-    if stat(55) != self.grid_count then
-        self.grid_count += 1
-        self.x = 24 + (stat(56)/16) * 8 + stat(55) * 256
+    -- fix synch every tick
+    local delay = 24 + (stat(56)/current_level.speed) * 8 + stat(55) * 256 - self.x
+    if delay >= 2 then
+        self.x += 2
+    elseif delay > 0 then
+        self.x += 1
     end
-
+    
+    -- fix synch every pattern
+    -- if stat(55) != self.grid_count then
+    --     self.grid_count += 1
+    --     -- 16 ticks for one row
+    --     -- 8 pixels per row
+    --     -- 256 pixels per pattern
+    --     shake = 0
+    --     --self.x = 24 + (stat(56)/current_level.speed) * 8 + stat(55) * 256
+    -- end
+    
     -- anim
     if gtime <= self.end_anim_time then self.spr = self.action_spr
     elseif gtime%self.anim_time == 0 then
@@ -51,7 +64,7 @@ function runner.update(self)
 
     -- harvest :)
     -- can optimize
-    if btnp(❎) then
+    if btnp(3) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
@@ -71,7 +84,7 @@ function runner.update(self)
         end
     end
 
-    if btnp(3) then
+    if btnp(❎) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
@@ -104,7 +117,6 @@ function runner.update(self)
         end
     end
 
-    self:move_x(self.speed_x)
     self:move_y(self.speed_y)
 end
 

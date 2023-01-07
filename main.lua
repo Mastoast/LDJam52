@@ -89,13 +89,13 @@ function draw_level()
         a:draw()
     end
 
-    printable = tostring(stat(56)).." "..tostring(stat(55)).." "..tostring(current_runner.x)
+    printable = tostring(current_runner.x)
     -- printable = #objects
     -- UI
 
 
     print(printable, cam.x + 80, cam.y + 120, 0)
-    print(tostring(current_runner.grid_count), cam.x + 80, cam.y + 100, 0)
+    print(24 + stat(56)/2 + stat(55) * 256, cam.x + 80, cam.y + 100, 0)
 end
 
 
