@@ -7,18 +7,23 @@ runner.flr = true
 runner.jump_force = -3
 runner.gravity = 0.20
 runner.action_spr = 6
+runner.grid_count = 0
 
 function runner.init(self)
     self.speed_x = 1
     self.state = 1
     self.collected_counter = 0
     self.end_anim_time = 0
+    self.grid_count = 0
 end
 
 function runner.update(self)
     local input_y = 0
 
-    -- if stat(56) == 0 then self.x =  end
+    if stat(55) != self.grid_count then
+        self.grid_count += 1
+        self.x = 24 + (stat(56)/16) * 8 + stat(55) * 256
+    end
 
     -- anim
     if gtime <= self.end_anim_time then self.spr = self.action_spr
