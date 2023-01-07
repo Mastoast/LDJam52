@@ -13,17 +13,18 @@ function init_level(level, debug_offset)
     objects = {}
     particles = {}
     ground_limit = 96
+    create(moon, 95, 25)
     --
     current_runner = create(runner, 24 + debug_offset*8*32, 88)
-    tuto1 = create(text, 26, 20)
+    tuto1 = create(text, 20, 20)
     tuto1.text = "⬇️ => "
     tuto1.spr = melon.spr
     tuto1.life = 510
-    tuto2 = create(text, 26, 30)
+    tuto2 = create(text, 20, 30)
     tuto2.text = "❎ => "
     tuto2.spr = leak.spr
     tuto2.life = 520
-    tuto3 = create(text, 26, 40)
+    tuto3 = create(text, 20, 40)
     tuto3.text = "🅾️ => "
     tuto3.spr = apple.spr
     tuto3.life = 530

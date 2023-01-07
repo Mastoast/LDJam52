@@ -14,9 +14,6 @@ end
     -- background
     -- tree on apple
     -- clouds
-    -- animate for leak/melon
-    -- play rythme on screen ????
-    -- doubler ui avec noir
 
 --Ui
  -- menu
@@ -24,7 +21,7 @@ end
  -- scoring dynamic !!
  -- level begining / end
 
--- SFX
+-- SFX ??
 -- jump 02 8-8
 -- catch 02 0-8
 
@@ -89,13 +86,12 @@ function draw_level()
         a:draw()
     end
 
-    printable = tostring(current_runner.x)
+
     -- printable = #objects
     -- UI
 
 
     print(printable, cam.x + 80, cam.y + 120, 0)
-    print(24 + stat(56)/2 + stat(55) * 256, cam.x + 80, cam.y + 100, 0)
 end
 
 

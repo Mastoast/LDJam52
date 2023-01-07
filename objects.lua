@@ -43,6 +43,27 @@ leak.solid = false
 leak.draw = fruit_draw
 leak.update = fruit_update
 
+-- BACKGROUND
+moon = new_type(0)
+moon.solid = false
+moon.hit_h = 12
+moon.filler = ♪
+moon.rsize_min = 5
+moon.rsize_max = 8
+moon.rsize = 5
+
+function moon.update(self)
+	self.rsize = self.rsize_max - (stat(56)/current_level.speed) % 4 
+end
+
+function moon.draw(self)
+	circfill(cam.x + self.x, cam.y + self.y, self.hit_h, 7)
+	fillp(self.filler)
+	circ(cam.x + self.x, cam.y + self.y, self.hit_h + self.rsize, 7)
+	circ(cam.x + self.x, cam.y + self.y, self.hit_h + self.rsize*2, 7)
+	fillp()
+end
+
 -- UI
 valid_ui = new_type(40)
 valid_ui.solid = false
