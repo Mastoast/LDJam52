@@ -6,7 +6,7 @@ function _init()
     cam = {x = 0, y = 0}
     printable = 0
     --
-    init_level()
+    init_level(level_1)
 end
 
 -- SFX

@@ -30,7 +30,7 @@ function runner.update(self)
     -- jump
     if self.flr and btnp(🅾️) then
         self.speed_y = self.jump_force
-        sfx(2, 3, 8, 8)
+        sfx(2, -1, 8, 8)
     end
     -- gravity
     self.speed_y += self.gravity
@@ -41,7 +41,8 @@ function runner.update(self)
             if (o.base == leak or o.base == melon or o.base == apple) and self:overlaps(o) then
                 o.destroyed = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
-                sfx(2, 3, 0, 8)
+                sfx(2, -1, 0, 8)
+                break
             end
         end
         
