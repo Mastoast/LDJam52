@@ -44,7 +44,7 @@ function _draw()
     if gstate == 0 then draw_menu()
     else draw_level() end
 
-    print(printable, cam.x + 80, cam.y + 120, 0)
+    --print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 -- MENU
