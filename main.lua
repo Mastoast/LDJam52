@@ -22,6 +22,7 @@ end
     -- level end
 
 -- Levels
+    -- 4th channel
     -- 2
     -- 3
 
@@ -83,6 +84,20 @@ function draw_level()
     else
         camera(cam.x, cam.y)
     end
+
+    -- draw background
+    -- TODO
+    local bck_speed = 1
+    local offset_x = (gtime/bck_speed)--%128
+    line(cam.x - 40 - offset_x, 128, cam.x + 4 - offset_x, 35, 5)
+    line(cam.x + 4 - offset_x, 35, cam.x + 68 - offset_x, 128, 5)
+    line(cam.x + 30 - offset_x, 74, cam.x + 55 - offset_x, 55, 5)
+    line(cam.x + 55 - offset_x, 55, cam.x + 88 - offset_x, 135, 5)
+    --
+    bck_speed = 1
+    offset_x = (gtime/bck_speed)
+    line(cam.x + 110 - offset_x, 128, cam.x + 130 - offset_x, 55, 5)
+    line(cam.x + 130 - offset_x, 55, cam.x + 190 - offset_x, 128, 5)
 
     -- draw map
     map(0, 0, flr(cam.x/8)*8 , 0, 32, 16, 1)
