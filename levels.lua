@@ -12,11 +12,11 @@ level_0.max_score = -1
 
 level_1 = {}
 level_1.name = "Level 1"
-level_1.start_music = 1
+level_1.start_music = 10
 level_1.ch_mask = 7
-level_1.speed = 16
-level_1.events = {{x = 0, y = 18}, {x = 0, y = 19}}
-level_1.event_offset = 64
+level_1.speed = 12
+level_1.events = {{x = 0, y = 22}, {x = 0, y = 23}}
+level_1.event_offset = 32
 level_1.best_score = -1
 level_1.max_score = -1
 
@@ -56,16 +56,17 @@ function init_level(level)
 
     -- gen objects from map
     local event_list_count = 0
+    local pixels_per_row = 8
     for event_list in all(level.events) do
         local y = event_list.y
         local x_offset = level.event_offset*8 + event_list_count*8*128
         for i=event_list.x, 127 do
             if mget(i, y) == leak.spr then
-                create(leak, i*level.speed/2 + x_offset, ground_limit - leak.hit_h)
+                create(leak, i*pixels_per_row + x_offset, ground_limit - leak.hit_h)
             elseif mget(i, y) == melon.spr then
-                create(melon, i*level.speed/2 + x_offset, ground_limit - melon.hit_h)
+                create(melon, i*pixels_per_row + x_offset, ground_limit - melon.hit_h)
             elseif mget(i, y) == apple.spr then
-                create(apple, i*level.speed/2 + x_offset, ground_limit - 2*8 - apple.hit_h)
+                create(apple, i*pixels_per_row + x_offset, ground_limit - 2*8 - apple.hit_h)
             end
         end
         event_list_count += 1
