@@ -12,7 +12,6 @@ runner.grid_count = 0
 function runner.init(self)
     self.speed_x = 1
     self.state = 1
-    self.collected_counter = 0
     self.end_anim_time = 0
     self.grid_count = 0
 end
@@ -71,17 +70,17 @@ function runner.update(self)
             if (o.base == melon) and not o.collected and self:overlaps(o) then
                 o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
-                --sfx(2, -1, 0, 8)
-                self.collected_counter += 1
                 success = true
                 break
             end
         end
         if success then
             create(valid_ui, self.x, self.y)
+            score_count += 300
             combo_count += 1
         else
             create(invalid_ui, self.x, self.y)
+            score_count = max(score_count - 50, 0)
             combo_count = 0
         end
     end
@@ -93,17 +92,17 @@ function runner.update(self)
             if (o.base == leak) and not o.collected and self:overlaps(o) then
                 o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
-                --sfx(2, -1, 0, 8)
-                self.collected_counter += 1
                 success = true
                 break
             end
         end
         if success then
             create(valid_ui, self.x, self.y)
+            score_count += 300
             combo_count += 1
         else
             create(invalid_ui, self.x, self.y)
+            score_count = max(score_count - 50, 0)
             combo_count = 0
         end
     end
@@ -114,8 +113,8 @@ function runner.update(self)
                 o.collected = true
                 spawn_particles(4 + rnd(3), 3, o.x, o.y, 8)
                 --sfx(2, -1, 0, 8)
-                self.collected_counter += 1
                 create(valid_ui, self.x, self.y)
+                score_count += 300
                 combo_count += 1
                 break
             end

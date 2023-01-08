@@ -1,12 +1,12 @@
 function _init()
     gtime = 0
-    gstate = 0 -- 0-menu | 1-level
+    gstate = 0 -- 0-menu | 1-level | 2-level end
     ndeath = 0
     freeze_time = 0
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    debug_pattern_offset = 0
+    debug_pattern_offset = 9
     level_list = {level_0, level_1}
     --
     init_menu()
@@ -19,6 +19,8 @@ function init_menu()
     selected_level = 0
     cam.x = 0
     cam.y = 0
+    objects = {}
+    particles = {}
     --freeze_time = 10
 end
 
@@ -42,12 +44,15 @@ function _update60()
     gtime += 1
 
     if gstate == 0 then update_menu()
-    elseif gstate == 1 then update_level() end
+    else update_level() end
 end
 
 function _draw()
     if gstate == 0 then draw_menu()
-    elseif gstate == 1 then draw_level() end
+    else draw_level() end
+
+    printable = current_level and current_level.max_score.." "..current_level.best_score
+    print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 -- MENU
@@ -78,7 +83,7 @@ end
 
 function draw_menu()
     cls(1)
-
+    camera(cam.x, cam.y)
     
     -- background
     line(cam.x - 40, 128, cam.x + 4, 35, 5)
@@ -124,6 +129,10 @@ function draw_menu()
             or lvl.name
             print_centered(lvl_label, 1, 41 + 8*incr, 0)
             print_centered(lvl_label, 0, 40 + 8*incr, 7)
+            if lvl.best_score>0 and lvl.max_score>0 then
+                print(flr((lvl.best_score/lvl.max_score)*100).."%", 101, 41 + 8*incr, 8)
+                print(flr((lvl.best_score/lvl.max_score)*100).."%", 100, 40 + 8*incr, 7)
+            end
             incr += 1
         end
 
@@ -166,9 +175,22 @@ function update_level()
     end
 
     --end of music
-    if stat(54) == -1 then
-        local c = 0
+    if stat(54) == -1 and gstate != 2 then
+        gstate = 2
+        local max_score_counter = 0
         for o in all(objects) do
+            if o.base == leak or o.base == melon or o.base == apple then
+                max_score_counter += 300
+            end
+        end
+        current_level.max_score = max_score_counter
+        current_level.best_score = score_count
+    end
+
+    if gstate == 2 then
+
+        if btnp(🅾️) or btnp(❎) then
+            init_menu()
         end
     end
 end
@@ -212,11 +234,10 @@ function draw_level()
 
     -- UI
     local last_color=peek(0x5f25)
-    print("SCORE : "..current_runner.collected_counter, cam.x + 4, cam.y + 4, 0)
-    print("SCORE : "..current_runner.collected_counter, cam.x + 3, cam.y + 3, last_color)
+    print("SCORE : "..score_count, cam.x + 4, cam.y + 4, 0)
+    print("SCORE : "..score_count, cam.x + 3, cam.y + 3, last_color)
     print("COMBO X"..combo_count, cam.x + 4, cam.y + 12, 0)
     print("COMBO X"..combo_count, cam.x + 3, cam.y + 11, 7)
-    print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 -- UTILS
