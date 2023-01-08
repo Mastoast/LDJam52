@@ -1,4 +1,5 @@
 level_1 = {}
+level_1.name = "Tutorial"
 level_1.start_music = 0
 level_1.ch_mask = 7
 level_1.speed = 16
@@ -15,20 +16,27 @@ function init_level(level)
     create(moon, 95, 25)
     --
     current_runner = create(runner, 24 + debug_pattern_offset*8*32, 88)
-    tuto1 = create(text, 20, 20)
-    tuto1.text = "⬇️ => "
-    tuto1.spr = melon.spr
-    tuto1.life = 510
-    tuto2 = create(text, 20, 30)
-    tuto2.text = "❎ => "
-    tuto2.spr = leak.spr
-    tuto2.life = 520
-    tuto3 = create(text, 20, 40)
-    tuto3.text = "🅾️ => "
-    tuto3.spr = apple.spr
-    tuto3.life = 530
+    local title = create(textc, 64, 56)
+    title.text = level.name
+    title.life = 320
 
-    -- gen objects
+    -- tutorial
+    if true then
+        tuto1 = create(text, 20, 20)
+        tuto1.text = "⬇️ => "
+        tuto1.spr = melon.spr
+        tuto1.life = 510
+        tuto2 = create(text, 20, 30)
+        tuto2.text = "❎ => "
+        tuto2.spr = leak.spr
+        tuto2.life = 520
+        tuto3 = create(text, 20, 40)
+        tuto3.text = "🅾️ => "
+        tuto3.spr = apple.spr
+        tuto3.life = 530
+    end
+
+    -- gen objects from map
     local event_list_count = 0
     for event_list in all(level.events) do
         local y = event_list.y

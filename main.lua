@@ -5,7 +5,7 @@ function _init()
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    debug_pattern_offset = 6
+    debug_pattern_offset = 0
     --
     init_level(level_1)
 end
@@ -13,18 +13,17 @@ end
 -- TODO
 -- visuals + feedback
     -- background
-    -- tree on apple
     -- clouds
 
---Ui
- -- menu
- -- level selection
- -- scoring dynamic !!
- -- level begining / end
+-- UI
+    -- menu
+    -- level selection
+    -- scoring dynamic !!
+    -- level end
 
--- SFX ??
--- jump 02 8-8
--- catch 02 0-8
+-- Levels
+    -- 2
+    -- 3
 
 function _update60()
     -- timers
@@ -62,7 +61,17 @@ function update_level()
 end
 
 function _draw()
+    --draw_menu()
     draw_level()
+end
+
+function draw_menu()
+    cls(1)
+
+    cam.x = 0
+    cam.y = 0
+
+    map(0, 47, 0, 0, 16, 16, 0)
 end
 
 function draw_level()
@@ -87,10 +96,8 @@ function draw_level()
         a:draw()
     end
 
-
     -- printable = #objects
     -- UI
-
 
     print(printable, cam.x + 80, cam.y + 120, 0)
 end

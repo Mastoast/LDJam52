@@ -87,15 +87,17 @@ invalid_ui.solid = false
 invalid_ui.life = 30
 invalid_ui.update = valid_ui.update
 
+--
 text = new_type(0)
 text.solid = false
 text.life = 500
 text.text = ""
+text.spr = nil
 
 function text.update(self)
 	self.life -= 1
 	if self.life <= 0 then self.y -= 1 end
-	if self.y < -1 and gtime%2 == 0 then self.destroyed = true end
+	if self.y < -1 then self.destroyed = true end
 end
 
 function text.draw(self)
@@ -104,6 +106,25 @@ function text.draw(self)
 	if self.spr then
 		spr(self.spr, cam.x + self.x + 2 + #self.text*4, cam.y + self.y - 2)
 	end
+end
+
+--
+textc = new_type(0)
+textc.solid = false
+textc.text = ""
+textc.offset_x = 90
+
+function textc.update(self)
+	if self.offset_x < -90 then self.destroyed = true end
+	if self.offset_x > 6 or self.offset_x < -6 then self.offset_x -= 2
+	elseif self.offset_x > -6 then self.offset_x -= 0.05 end
+end
+
+function textc.draw(self)
+	print_centered(self.text, self.offset_x, cam.y + self.y + 1, 9)
+	print_centered(self.text, -self.offset_x, cam.y + self.y, 7)
+	-- print(self.text, cam.x + self.x + 1, cam.y + self.y + 1, 0)
+	-- print(self.text, cam.x + self.x, cam.y + self.y, 8)
 end
 
 -- PARTICLES
