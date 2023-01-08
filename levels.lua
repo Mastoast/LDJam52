@@ -25,6 +25,7 @@ function init_level(level)
     gtime = 0
     gstate = 1
     combo_count = 0
+    best_combo = 0
     score_count = 0
     final_score = -1
     objects = {}

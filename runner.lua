@@ -61,6 +61,10 @@ function runner.update(self)
         self.speed_y += self.gravity
     end
 
+    self:move_y(self.speed_y)
+
+    if gstate == 2 then return end
+
     -- harvest :)
     -- can optimize
     if btnp(3) then
@@ -77,7 +81,7 @@ function runner.update(self)
         if success then
             create(valid_ui, self.x, self.y)
             score_count += 300
-            combo_count += 1
+            incr_combo()
         else
             create(invalid_ui, self.x, self.y)
             score_count = max(score_count - 50, 0)
@@ -99,7 +103,7 @@ function runner.update(self)
         if success then
             create(valid_ui, self.x, self.y)
             score_count += 300
-            combo_count += 1
+            incr_combo()
         else
             create(invalid_ui, self.x, self.y)
             score_count = max(score_count - 50, 0)
@@ -115,15 +119,18 @@ function runner.update(self)
                 --sfx(2, -1, 0, 8)
                 create(valid_ui, self.x, self.y)
                 score_count += 300
-                combo_count += 1
+                incr_combo()
                 break
             end
         end
     end
-
-    self:move_y(self.speed_y)
 end
 
 function runner.draw(self)
     spr(self.spr, self.x, self.y)
+end
+
+function incr_combo()
+    combo_count += 1
+    if combo_count >= best_combo then best_combo = combo_count end
 end

@@ -51,8 +51,8 @@ function _draw()
     if gstate == 0 then draw_menu()
     else draw_level() end
 
-    printable = current_level and current_level.max_score.." "..current_level.best_score
-    print(printable, cam.x + 80, cam.y + 120, 0)
+    -- printable = current_level and current_level.max_score.." "..current_level.best_score
+    -- print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 -- MENU
@@ -176,6 +176,7 @@ function update_level()
 
     --end of music
     if stat(54) == -1 and gstate != 2 then
+        sfx(1, 0, 8, 8)
         gstate = 2
         local max_score_counter = 0
         for o in all(objects) do
@@ -189,7 +190,8 @@ function update_level()
 
     if gstate == 2 then
 
-        if btnp(🅾️) or btnp(❎) then
+        if btnp(⬅️) then
+            sfx(1, 0, 16, 4)
             init_menu()
         end
     end
@@ -238,6 +240,17 @@ function draw_level()
     print("SCORE : "..score_count, cam.x + 3, cam.y + 3, last_color)
     print("COMBO X"..combo_count, cam.x + 4, cam.y + 12, 0)
     print("COMBO X"..combo_count, cam.x + 3, cam.y + 11, 7)
+
+    -- End of level
+    if gstate == 2 then
+        print_centered("Level cleared : "..flr((score_count/current_level.max_score)*100).."%",1, cam.y + 63, 8)
+        print_centered("Level cleared : "..flr((score_count/current_level.max_score)*100).."%", 0, cam.y + 62, 7)
+        print_centered("best combo : "..best_combo, 1, cam.y + 71, 8)
+        print_centered("best combo : "..best_combo, 0, cam.y + 70, 7)
+        --
+        print_centered("⬅️ back to menu", 1, 116, 0)
+        print_centered("⬅️ back to menu", 0, 115, 7)
+    end
 end
 
 -- UTILS
