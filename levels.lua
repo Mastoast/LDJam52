@@ -49,7 +49,7 @@ function init_level(level)
         tuto2.spr = leak.spr
         tuto2.life = 520
         tuto3 = create(text, 20, 40)
-        tuto3.text = "🅾️ => "
+        tuto3.text = "⬆️ => "
         tuto3.spr = apple.spr
         tuto3.life = 530
     end

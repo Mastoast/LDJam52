@@ -50,7 +50,7 @@ function runner.update(self)
         self.flr = true
     end
     -- jump
-    if self.flr and btnp(🅾️) then
+    if self.flr and btnp(⬆️) then
         self.speed_y = self.jump_force
         --sfx(2, -1, 8, 8)
     end
@@ -67,7 +67,7 @@ function runner.update(self)
 
     -- harvest :)
     -- can optimize
-    if btnp(3) then
+    if btnp(⬇️) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do

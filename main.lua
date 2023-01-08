@@ -6,8 +6,8 @@ function _init()
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    debug_pattern_offset = 9
-    level_list = {level_0, level_1}
+    debug_pattern_offset = 0
+    level_list = {level_0}
     --
     init_menu()
 end
@@ -27,12 +27,7 @@ end
 -- TODO
 -- visuals + feedback
     -- clouds
-    -- more backgrounds ??
-
--- UI
-    -- menu
-    -- level selection
-    -- level end
+    -- more backgrounds in rythm ?? (sspr)
 
 -- Levels
     -- 1 - 4th channel
@@ -111,9 +106,12 @@ function draw_menu()
         print("❎ => ", 11, 51, 0)
         print("❎ => ", 10, 50, (btn(❎) and 8) or 7)
         spr(leak.spr, 35, 49)
-        print("🅾️ => ", 11, 61, 0)
-        print("🅾️ => ", 10, 60, (btn(🅾️) and 8) or 7)
+        print("⬆️ => ", 11, 61, 0)
+        print("⬆️ => ", 10, 60, (btn(⬆️) and 8) or 7)
         spr(apple.spr, 35, 59)
+
+        print("<= TRY IT !", 60, 51, 0)
+        print("<= TRY IT !", 60, 50, 8)
 
         print_centered("⬅️ back to menu", 1, 116, 0)
         print_centered("⬅️ back to menu", 0, 115, 7)
