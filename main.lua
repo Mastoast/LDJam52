@@ -6,7 +6,7 @@ function _init()
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    debug_pattern_offset = 6
+    debug_pattern_offset = 0
     level_list = {level_0, level_1}
     --
     --init_menu()
