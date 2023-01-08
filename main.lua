@@ -7,10 +7,10 @@ function _init()
     cam = {x = 0, y = 0}
     printable = 0
     debug_pattern_offset = 0
-    level_list = {level_0, level_1}
+    level_list = {level_0, level_1, level_2}
     --
     --init_menu()
-    init_level(level_1)
+    init_level(level_2)
 end
 
 function init_menu()
