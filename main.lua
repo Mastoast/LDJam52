@@ -9,8 +9,8 @@ function _init()
     debug_pattern_offset = 0
     level_list = {level_0, level_1, level_2}
     --
-    --init_menu()
-    init_level(level_2)
+    init_menu()
+    -- init_level(level_2)
 end
 
 function init_menu()
@@ -48,23 +48,19 @@ function _draw()
     else draw_level() end
 
     -- printable = current_level and current_level.max_score.." "..current_level.best_score
-    -- print(printable, cam.x + 80, cam.y + 120, 0)
+    print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
 -- MENU
 function update_menu()
-    if btnp(➡️) then
-        sfx(2, 0, 8, 4)
-        tutorial_shown = true
-    end
-    if btnp(⬅️) then
-        sfx(2, 0, 8, 4)
-        tutorial_shown = false
-    end
     if not tutorial_shown then
         if btnp(⬇️) then
             sfx(2, 0, 8, 4)
-            selected_level = (selected_level + 1)%#level_list
+            if (selected_level+1 == #level_list) then
+                tutorial_shown = true
+            else
+                selected_level = (selected_level + 1)%#level_list
+            end
         end
         if btnp(⬆️) then
             sfx(2, 0, 8, 4)
@@ -74,7 +70,13 @@ function update_menu()
             sfx(1, 2, 0, 8)
             init_level(level_list[selected_level+1])
         end
+    else
+        if btnp(❎) or btnp(🅾️) then
+            sfx(2, 0, 8, 4)
+            tutorial_shown = false
+        end
     end
+    printable = selected_level
 end
 
 function draw_menu()
@@ -101,21 +103,21 @@ function draw_menu()
         print_centered("the corresponding item", 1, 20, 0)
         print_centered("the corresponding item", 0, 19, 3)
 
-        print("⬇️ => ", 11, 41, 0)
-        print("⬇️ => ", 10, 40, (btn(⬇️) and 8) or 7)
-        spr(melon.spr, 35, 39)
-        print("❎ => ", 11, 51, 0)
-        print("❎ => ", 10, 50, (btn(❎) and 8) or 7)
-        spr(leak.spr, 35, 49)
-        print("⬆️ => ", 11, 61, 0)
-        print("⬆️ => ", 10, 60, (btn(⬆️) and 8) or 7)
-        spr(apple.spr, 35, 59)
+        print("⬆️ => ", 11, 41, 0)
+        print("⬆️ => ", 10, 40, (btn(⬆️) and 8) or 7)
+        spr(apple.spr, 35, 39)
+        print("⬅️ => ", 11, 51, 0)
+        print("⬅️ => ", 10, 50, (btn(⬅️) and 8) or 7)
+        spr(melon.spr, 35, 49)
+        print("➡️ => ", 11, 61, 0)
+        print("➡️ => ", 10, 60, (btn(➡️) and 8) or 7)
+        spr(leak.spr, 35, 59)
 
         print("<= TRY IT !", 60, 51, 0)
         print("<= TRY IT !", 60, 50, 8)
 
-        print_centered("⬅️ back to menu", 1, 116, 0)
-        print_centered("⬅️ back to menu", 0, 115, 7)
+        print_centered("❎ or 🅾️ back to menu", 1, 116, 0)
+        print_centered("❎ or 🅾️ back to menu", 0, 115, 7)
     else
         print_centered("You're under harvest", 1, 11, 0)
         print_centered("You're under harvest", 1, 10, 0)
@@ -135,8 +137,8 @@ function draw_menu()
             incr += 1
         end
 
-        print_centered("how to play ➡️", 1, 71, 0)
-        print_centered("how to play ➡️", 0, 70, 7)
+        print_centered("⬇️ how to play ⬇️", 1, 71, 0)
+        print_centered("⬇️ how to play ⬇️", 0, 70, 7)
 
         if gtime %128 > 32 then 
             print_centered(" press 🅾️ or ❎ to start ", 1, 115, 1)

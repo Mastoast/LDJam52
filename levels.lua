@@ -51,16 +51,16 @@ function init_level(level)
     -- tutorial
     if true then
         tuto1 = create(text, 20, 20)
-        tuto1.text = "⬇️ => "
-        tuto1.spr = melon.spr
+        tuto1.text = "⬆️ => "
+        tuto1.spr = apple.spr
         tuto1.life = 510
         tuto2 = create(text, 20, 30)
-        tuto2.text = "❎ => "
-        tuto2.spr = leak.spr
+        tuto2.text = "⬅️ => "
+        tuto2.spr = melon.spr
         tuto2.life = 520
         tuto3 = create(text, 20, 40)
-        tuto3.text = "⬆️ => "
-        tuto3.spr = apple.spr
+        tuto3.text = "➡️ => "
+        tuto3.spr = leak.spr
         tuto3.life = 530
     end
 

@@ -67,7 +67,7 @@ function runner.update(self)
 
     -- harvest :)
     -- can optimize
-    if btnp(⬇️) then
+    if btnp(⬅️) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
@@ -89,7 +89,7 @@ function runner.update(self)
         end
     end
 
-    if btnp(❎) then
+    if btnp(➡️) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
