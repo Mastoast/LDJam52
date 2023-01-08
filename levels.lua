@@ -25,7 +25,7 @@ level_2.name = "Level 2"
 level_2.start_music = 18
 level_2.ch_mask = 7
 level_2.speed = 16
-level_2.events = {{x = 0, y = 27}, {x = 0, y = 28}, {x = 0, y = 29}, {x = 0, y = 30}}
+level_2.events = {{x = 0, y = 27}, {x = 0, y = 28}, {x = 0, y = 29}}
 level_2.event_offset = 64
 level_2.best_score = -1
 level_2.max_score = -1
