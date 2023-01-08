@@ -1,5 +1,6 @@
 function _init()
     gtime = 0
+    gstate = 0 -- 0-menu | 1-level
     ndeath = 0
     freeze_time = 0
     shake = 0
@@ -7,22 +8,30 @@ function _init()
     printable = 0
     debug_pattern_offset = 0
     --
-    init_level(level_1)
+    init_menu()
+end
+
+function init_menu()
+    gtime = 0
+    gstate = 0
+    tutorial_shown = false
+    cam.x = 0
+    cam.y = 0
+    --freeze_time = 10
 end
 
 -- TODO
 -- visuals + feedback
-    -- background
     -- clouds
+    -- more backgrounds ??
 
 -- UI
     -- menu
     -- level selection
-    -- scoring dynamic !!
     -- level end
 
 -- Levels
-    -- 4th channel
+    -- 1 - 4th channel
     -- 2
     -- 3
 
@@ -30,9 +39,83 @@ function _update60()
     -- timers
     gtime += 1
 
-    update_level()
+    if gstate == 0 then update_menu()
+    elseif gstate == 1 then update_level() end
 end
 
+function _draw()
+    if gstate == 0 then draw_menu()
+    elseif gstate == 1 then draw_level() end
+end
+
+-- MENU
+function update_menu()
+    if btnp(➡️) then
+        sfx(2, 0, 8, 4)
+        tutorial_shown = true
+    end
+    if btnp(⬅️) then
+        sfx(2, 0, 8, 4)
+        tutorial_shown = false
+    end
+    if (btnp(4) or btnp(5)) and not tutorial_shown then
+        sfx(2, 0, 8, 4) -- TODO
+        init_level(level_1)
+    end
+end
+
+function draw_menu()
+    cls(1)
+
+    
+    -- background
+    line(cam.x - 40, 128, cam.x + 4, 35, 5)
+    line(cam.x + 4, 35, cam.x + 68, 128, 5)
+    line(cam.x + 30, 74, cam.x + 55, 55, 5)
+    line(cam.x + 55, 55, cam.x + 88, 135, 5)
+    line(cam.x + 13, 128, cam.x + 150, 65, 5)
+    line(cam.x + 150, 65, cam.x + 210, 128, 5)
+
+    map(0, 47, 0, 0, 16, 16, 0)
+    spr(apple.spr, 78, 83)
+    circfill(cam.x + 95, cam.y + 25, 12, 7)
+
+    if tutorial_shown then
+        print_centered("Use the correct button", 1, 4, 0)
+        print_centered("Use the correct button", 0, 3, 3)
+        print_centered("in rythm to harvest", 1, 12, 0)
+        print_centered("in rythm to harvest", 0, 11, 3)
+        print_centered("the corresponding item", 1, 20, 0)
+        print_centered("the corresponding item", 0, 19, 3)
+
+        print("⬇️ => ", 11, 41, 0)
+        print("⬇️ => ", 10, 40, (btn(⬇️) and 8) or 7)
+        spr(melon.spr, 35, 39)
+        print("❎ => ", 11, 51, 0)
+        print("❎ => ", 10, 50, (btn(❎) and 8) or 7)
+        spr(leak.spr, 35, 49)
+        print("🅾️ => ", 11, 61, 0)
+        print("🅾️ => ", 10, 60, (btn(🅾️) and 8) or 7)
+        spr(apple.spr, 35, 59)
+
+        print_centered("⬅️ back to menu", 1, 116, 0)
+        print_centered("⬅️ back to menu", 0, 115, 7)
+    else
+        print_centered("You're under harvest", 1, 21, 0)
+        print_centered("You're under harvest", 1, 20, 0)
+        print_centered("You're under harvest", 0, 20, 3)
+
+        print_centered("how to play ➡️", 1, 66, 0)
+        print_centered("how to play ➡️", 0, 65, 7)
+
+        if gtime %128 < 90 then 
+            print_centered(" press 🅾️ or ❎ to start ", 1, 115, 1)
+            print_centered(" press 🅾️ or ❎ to start ", 0, 116, 7)
+        end
+    end
+end
+
+-- LEVELS
 function update_level()
     --
     shake = max(shake - 1)
@@ -59,25 +142,13 @@ function update_level()
             a:update()
         end
     end
-end
 
-function _draw()
-    --draw_menu()
-    draw_level()
-end
-
-function draw_menu()
-    cls(1)
-
-    cam.x = 0
-    cam.y = 0
-
-    map(0, 47, 0, 0, 16, 16, 0)
-    circfill(cam.x + 95, cam.y + 25, 12, 7)
-
-    print_centered("You're under harvest", 1, 31, 0)
-    print_centered("You're under harvest", 1, 30, 0)
-    print_centered("You're under harvest", 0, 30, 3)
+    --end of music
+    if stat(54) == -1 then
+        local c = 0
+        for o in all(objects) do
+        end
+    end
 end
 
 function draw_level()
@@ -116,12 +187,17 @@ function draw_level()
     end
 
     -- printable = #objects
+    printable = stat(54)
     -- UI
-
+    local last_color=peek(0x5f25)
+    print("SCORE : "..current_runner.collected_counter, cam.x + 4, cam.y + 4, 0)
+    print("SCORE : "..current_runner.collected_counter, cam.x + 3, cam.y + 3, last_color)
+    print("COMBO X"..combo_count, cam.x + 4, cam.y + 12, 0)
+    print("COMBO X"..combo_count, cam.x + 3, cam.y + 11, 7)
     print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
-
+-- UTILS
 -- linear interpolation
 function lerp(start,finish,t)
     return mid(start,start*(1-t)+finish*t,finish)

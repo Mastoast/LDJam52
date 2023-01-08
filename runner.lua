@@ -79,8 +79,10 @@ function runner.update(self)
         end
         if success then
             create(valid_ui, self.x, self.y)
+            combo_count += 1
         else
             create(invalid_ui, self.x, self.y)
+            combo_count = 0
         end
     end
 
@@ -99,8 +101,10 @@ function runner.update(self)
         end
         if success then
             create(valid_ui, self.x, self.y)
+            combo_count += 1
         else
             create(invalid_ui, self.x, self.y)
+            combo_count = 0
         end
     end
 
@@ -112,6 +116,7 @@ function runner.update(self)
                 --sfx(2, -1, 0, 8)
                 self.collected_counter += 1
                 create(valid_ui, self.x, self.y)
+                combo_count += 1
                 break
             end
         end

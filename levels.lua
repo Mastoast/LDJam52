@@ -6,10 +6,14 @@ level_1.speed = 16
 level_1.length = 320
 level_1.events = {{x = 0, y = 18}, {x = 0, y = 19}}
 level_1.event_offset = 64
+level_1.best_score = 0
 
 function init_level(level)
     current_level = level
     gtime = 0
+    gstate = 1
+    combo_count = 0
+    final_score = -1
     objects = {}
     particles = {}
     ground_limit = 96

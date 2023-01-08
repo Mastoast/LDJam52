@@ -19,6 +19,7 @@ function fruit_update(self)
 	if not self.collected and not self.missed and current_runner.x > self.x + self.hit_w then
 		self.missed = true
 		create(invalid_ui, self.x, self.y)
+		combo_count = 0
 	end
 end
 
