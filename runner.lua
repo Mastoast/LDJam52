@@ -4,7 +4,7 @@ runner.hit_h = 8
 runner.sprs = {4, 5}
 runner.anim_time = 7
 runner.flr = true
-runner.jump_force = -3
+runner.jump_force = -2.9
 runner.gravity = 0.20
 runner.action_spr = 6
 runner.grid_count = 0
@@ -56,7 +56,7 @@ function runner.update(self)
     end
     -- gravity
     if self.speed_y > 0 then
-        self.speed_y += self.gravity*2.5
+        self.speed_y += self.gravity*4
     else
         self.speed_y += self.gravity
     end

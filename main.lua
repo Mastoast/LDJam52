@@ -22,7 +22,6 @@ function init_menu()
     cam.y = 0
     objects = {}
     particles = {}
-    --freeze_time = 10
 end
 
 -- TODO
@@ -31,8 +30,6 @@ end
     -- more backgrounds in rythm ?? (sspr)
 
 -- Levels
-    -- 1 - 4th channel
-    -- 2
     -- 3
 
 function _update60()
@@ -47,7 +44,6 @@ function _draw()
     if gstate == 0 then draw_menu()
     else draw_level() end
 
-    -- printable = current_level and current_level.max_score.." "..current_level.best_score
     print(printable, cam.x + 80, cam.y + 120, 0)
 end
 
@@ -58,6 +54,7 @@ function update_menu()
             sfx(2, 0, 8, 4)
             if (selected_level+1 == #level_list) then
                 tutorial_shown = true
+                selected_level = 0
             else
                 selected_level = (selected_level + 1)%#level_list
             end
@@ -76,7 +73,6 @@ function update_menu()
             tutorial_shown = false
         end
     end
-    printable = selected_level
 end
 
 function draw_menu()
@@ -232,8 +228,6 @@ function draw_level()
     for a in all(particles) do
         a:draw()
     end
-
-    -- printable = #objects
 
     -- UI
     local last_color=peek(0x5f25)
