@@ -1,9 +1,17 @@
+level_0 = {}
+level_0.name = "Tutorial"
+level_0.start_music = 0
+level_0.ch_mask = 7
+level_0.speed = 16
+level_0.events = {{x = 0, y = 18}, {x = 0, y = 19}}
+level_0.event_offset = 64
+level_0.best_score = 0
+
 level_1 = {}
-level_1.name = "Tutorial"
-level_1.start_music = 0
+level_1.name = "Level 1"
+level_1.start_music = 1
 level_1.ch_mask = 7
 level_1.speed = 16
-level_1.length = 320
 level_1.events = {{x = 0, y = 18}, {x = 0, y = 19}}
 level_1.event_offset = 64
 level_1.best_score = 0

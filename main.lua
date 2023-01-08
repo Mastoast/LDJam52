@@ -7,6 +7,7 @@ function _init()
     cam = {x = 0, y = 0}
     printable = 0
     debug_pattern_offset = 0
+    level_list = {level_0, level_1}
     --
     init_menu()
 end
@@ -15,6 +16,7 @@ function init_menu()
     gtime = 0
     gstate = 0
     tutorial_shown = false
+    selected_level = 0
     cam.x = 0
     cam.y = 0
     --freeze_time = 10
@@ -58,9 +60,19 @@ function update_menu()
         sfx(2, 0, 8, 4)
         tutorial_shown = false
     end
-    if (btnp(4) or btnp(5)) and not tutorial_shown then
-        sfx(2, 0, 8, 4) -- TODO
-        init_level(level_1)
+    if not tutorial_shown then
+        if btnp(⬇️) then
+            sfx(2, 0, 8, 4)
+            selected_level = (selected_level + 1)%#level_list
+        end
+        if btnp(⬆️) then
+            sfx(2, 0, 8, 4)
+            selected_level = (selected_level - 1)%#level_list
+        end
+        if (btnp(4) or btnp(5)) then
+            sfx(1, 0, 0, 8)
+            init_level(level_list[selected_level+1])
+        end
     end
 end
 
@@ -101,14 +113,24 @@ function draw_menu()
         print_centered("⬅️ back to menu", 1, 116, 0)
         print_centered("⬅️ back to menu", 0, 115, 7)
     else
-        print_centered("You're under harvest", 1, 21, 0)
-        print_centered("You're under harvest", 1, 20, 0)
-        print_centered("You're under harvest", 0, 20, 3)
+        print_centered("You're under harvest", 1, 11, 0)
+        print_centered("You're under harvest", 1, 10, 0)
+        print_centered("You're under harvest", 0, 10, 3)
 
-        print_centered("how to play ➡️", 1, 66, 0)
-        print_centered("how to play ➡️", 0, 65, 7)
+        -- level selection
+        local incr = 0
+        for lvl in all(level_list) do
+            local lvl_label = (level_list[selected_level+1] == lvl and "♪ "..lvl.name.." ♪")
+            or lvl.name
+            print_centered(lvl_label, 1, 41 + 8*incr, 0)
+            print_centered(lvl_label, 0, 40 + 8*incr, 7)
+            incr += 1
+        end
 
-        if gtime %128 < 90 then 
+        print_centered("how to play ➡️", 1, 71, 0)
+        print_centered("how to play ➡️", 0, 70, 7)
+
+        if gtime %128 > 32 then 
             print_centered(" press 🅾️ or ❎ to start ", 1, 115, 1)
             print_centered(" press 🅾️ or ❎ to start ", 0, 116, 7)
         end
@@ -187,7 +209,7 @@ function draw_level()
     end
 
     -- printable = #objects
-    printable = stat(54)
+
     -- UI
     local last_color=peek(0x5f25)
     print("SCORE : "..current_runner.collected_counter, cam.x + 4, cam.y + 4, 0)
