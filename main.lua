@@ -70,7 +70,7 @@ function update_menu()
             selected_level = (selected_level - 1)%#level_list
         end
         if (btnp(4) or btnp(5)) then
-            sfx(1, 0, 0, 8)
+            sfx(1, 2, 0, 8)
             init_level(level_list[selected_level+1])
         end
     end
