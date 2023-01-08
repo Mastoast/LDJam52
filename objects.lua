@@ -33,8 +33,15 @@ melon.update = fruit_update
 apple = new_type(21)
 apple.solid = false
 apple.collected_sprite = 22
-apple.draw = fruit_draw
 apple.update = fruit_update
+
+function apple.draw(self)
+	spr(9, self.x - 12, self.y - 8, 3, 4)
+	-- local stretch_offset = 0
+	-- if (stat(56)/current_level.speed) % 8 > 4 then stretch_offset = 1 end
+	-- sspr(72, 0, 3*8, 4*8, self.x - 12, self.y - 8, 3*8, 4*8)
+	fruit_draw(self)
+end
 
 -- leak
 leak = new_type(37)
@@ -53,7 +60,7 @@ moon.rsize_max = 8
 moon.rsize = 5
 
 function moon.update(self)
-	self.rsize = self.rsize_max - (stat(56)/current_level.speed) % 4 
+	self.rsize = self.rsize_max - (stat(56)/current_level.speed) % 4
 end
 
 function moon.draw(self)

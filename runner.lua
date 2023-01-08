@@ -21,7 +21,7 @@ function runner.update(self)
     local input_y = 0
 
     -- fix synch every tick
-    local delay = 24 + (stat(56)/current_level.speed) * 8 + stat(55) * 256 - self.x
+    local delay = 24 + (stat(56)/current_level.speed) * 8 + (debug_pattern_offset + stat(55)) * 256 - self.x
     if delay >= 2 then
         self.x += 2
     elseif delay > 0 then

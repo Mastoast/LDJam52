@@ -6,16 +6,15 @@ level_1.length = 320
 level_1.events = {{x = 0, y = 18}, {x = 0, y = 19}}
 level_1.event_offset = 64
 
-function init_level(level, debug_offset)
+function init_level(level)
     current_level = level
-    debug_offset = debug_offset or 0
     gtime = 0
     objects = {}
     particles = {}
     ground_limit = 96
     create(moon, 95, 25)
     --
-    current_runner = create(runner, 24 + debug_offset*8*32, 88)
+    current_runner = create(runner, 24 + debug_pattern_offset*8*32, 88)
     tuto1 = create(text, 20, 20)
     tuto1.text = "⬇️ => "
     tuto1.spr = melon.spr
@@ -45,5 +44,5 @@ function init_level(level, debug_offset)
         end
         event_list_count += 1
     end
-    music(level.start_music + debug_offset, 0, level.ch_mask)
+    music(level.start_music + debug_pattern_offset, 0, level.ch_mask)
 end
