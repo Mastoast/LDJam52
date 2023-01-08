@@ -14,9 +14,9 @@ level_1 = {}
 level_1.name = "Level 1"
 level_1.start_music = 10
 level_1.ch_mask = 7
-level_1.speed = 12
+level_1.speed = 16
 level_1.events = {{x = 0, y = 22}, {x = 0, y = 23}}
-level_1.event_offset = 32
+level_1.event_offset = 64
 level_1.best_score = -1
 level_1.max_score = -1
 
