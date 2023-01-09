@@ -9,6 +9,7 @@ function _init()
     debug_pattern_offset = 0
     level_list = {level_0, level_1, level_2}
     --
+    selected_level = 0
     init_menu()
     -- init_level(level_2)
 end
@@ -17,11 +18,11 @@ function init_menu()
     gtime = 0
     gstate = 0
     tutorial_shown = false
-    selected_level = 0
     cam.x = 0
     cam.y = 0
     objects = {}
     particles = {}
+    music(-1)
 end
 
 -- TODO
@@ -113,8 +114,8 @@ function draw_menu()
         print("<= TRY IT !", 60, 51, 0)
         print("<= TRY IT !", 60, 50, 8)
         
-        print("🅾️ => restart level", 11, 81, 0)
-        print("🅾️ => restart level", 10, 80, (btn(🅾️) and 8) or 7)
+        print("🅾️ => return to menu", 11, 81, 0)
+        print("🅾️ => return to menu", 10, 80, (btn(🅾️) and 8) or 7)
 
         print_centered("❎ back to menu", 1, 116, 0)
         print_centered("❎ back to menu", 0, 115, 7)
@@ -175,28 +176,31 @@ function update_level()
         end
     end
 
-    -- restart
-    if btnp(🅾️) then
-        init_level(current_level)
-    end
 
-    --end of music
-    if stat(54) == -1 and gstate != 2 then
-        sfx(1, 0, 8, 8)
-        gstate = 2
-        local max_score_counter = 0
-        for o in all(objects) do
-            if o.base == leak or o.base == melon or o.base == apple then
-                max_score_counter += 300
-            end
+    if gstate != 2 then
+        -- restart
+        if btnp(🅾️) then
+            --init_level(current_level)
+            init_menu()
         end
-        current_level.max_score = max_score_counter
-        current_level.best_score = max(current_level.best_score, score_count)
+
+        --end of music
+        if stat(54) == -1 then
+            sfx(1, 0, 8, 8)
+            gstate = 2
+            local max_score_counter = 0
+            for o in all(objects) do
+                if o.base == leak or o.base == melon or o.base == apple then
+                    max_score_counter += 300
+                end
+            end
+            current_level.max_score = max_score_counter
+            current_level.best_score = max(current_level.best_score, score_count)
+        end
     end
 
     if gstate == 2 then
-
-        if btnp(⬅️) then
+        if btnp(❎) then
             sfx(1, 0, 16, 4)
             init_menu()
         end
@@ -252,8 +256,8 @@ function draw_level()
         print_centered("best combo : "..best_combo, 1, cam.y + 71, 8)
         print_centered("best combo : "..best_combo, 0, cam.y + 70, 7)
         --
-        print_centered("⬅️ back to menu", 1, 116, 0)
-        print_centered("⬅️ back to menu", 0, 115, 7)
+        print_centered("❎ back to menu", 1, 116, 0)
+        print_centered("❎ back to menu", 0, 115, 7)
     end
 end
 
