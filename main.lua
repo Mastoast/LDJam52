@@ -28,12 +28,10 @@ end
 -- visuals + feedback
     -- clouds
     -- more backgrounds in rythm ?? (sspr)
-    -- melon LEFT visual clue
-    -- restart button in tuto
 
 -- Levels
     -- 3 level phase 2
-
+    -- 4 ??
 
 function _update60()
     -- timers
@@ -66,12 +64,12 @@ function update_menu()
             sfx(2, 0, 8, 4)
             selected_level = (selected_level - 1)%#level_list
         end
-        if (btnp(4) or btnp(5)) then
+        if btnp(❎) then
             sfx(1, 2, 0, 8)
             init_level(level_list[selected_level+1])
         end
     else
-        if btnp(❎) or btnp(🅾️) then
+        if btnp(❎) then
             sfx(2, 0, 8, 4)
             tutorial_shown = false
         end
@@ -114,9 +112,12 @@ function draw_menu()
 
         print("<= TRY IT !", 60, 51, 0)
         print("<= TRY IT !", 60, 50, 8)
+        
+        print("🅾️ => restart level", 11, 81, 0)
+        print("🅾️ => restart level", 10, 80, (btn(🅾️) and 8) or 7)
 
-        print_centered("❎ or 🅾️ back to menu", 1, 116, 0)
-        print_centered("❎ or 🅾️ back to menu", 0, 115, 7)
+        print_centered("❎ back to menu", 1, 116, 0)
+        print_centered("❎ back to menu", 0, 115, 7)
     else
         print_centered("You're under harvest", 1, 11, 0)
         print_centered("You're under harvest", 1, 10, 0)
@@ -140,8 +141,8 @@ function draw_menu()
         print_centered("⬇️ how to play ⬇️", 0, 70, 7)
 
         if gtime %128 > 32 then 
-            print_centered(" press 🅾️ or ❎ to start ", 1, 115, 1)
-            print_centered(" press 🅾️ or ❎ to start ", 0, 116, 7)
+            print_centered(" press ❎ to start ", 1, 115, 1)
+            print_centered(" press ❎ to start ", 0, 116, 7)
         end
     end
 end
