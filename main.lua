@@ -29,8 +29,13 @@ end
     -- clouds
     -- more backgrounds in rythm ?? (sspr)
 
+    -- melon LEFT visual clue
+    -- restart button
+
 -- Levels
-    -- 3
+    -- 3 4th channel
+    -- 3 level phase 2
+
 
 function _update60()
     -- timers
@@ -169,6 +174,11 @@ function update_level()
         for a in all(particles) do
             a:update()
         end
+    end
+
+    -- restart
+    if btnp(🅾️) then
+        init_level(current_level)
     end
 
     --end of music
