@@ -28,12 +28,10 @@ end
 -- visuals + feedback
     -- clouds
     -- more backgrounds in rythm ?? (sspr)
-
     -- melon LEFT visual clue
-    -- restart button
+    -- restart button in tuto
 
 -- Levels
-    -- 3 4th channel
     -- 3 level phase 2
 
 
@@ -192,7 +190,7 @@ function update_level()
             end
         end
         current_level.max_score = max_score_counter
-        current_level.best_score = score_count
+        current_level.best_score = max(current_level.best_score, score_count)
     end
 
     if gstate == 2 then
