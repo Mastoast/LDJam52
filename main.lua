@@ -42,7 +42,6 @@ end
 -- visuals + feedback
     -- clouds
     -- more backgrounds in rythm ?? (sspr)
-    -- more effects on better scores
 
 -- Levels
     -- 3 level rework phase 2 (more diversity)
@@ -216,9 +215,14 @@ function update_level()
     end
 
     if gstate == 2 then
+        -- back to menu
         if btnp(❎) then
             sfx(1, 0, 16, 4)
             init_menu()
+        end
+        -- create fireworks
+        if score_count == current_level.max_score and gtime%8 == 0 then
+            spawn_particles(20, 1, cam.x + 20 + rnd(88), cam.y + 15 + rnd(40), rnd(15))
         end
     end
 end
