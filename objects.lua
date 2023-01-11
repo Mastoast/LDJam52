@@ -52,6 +52,13 @@ leak.solid = false
 leak.draw = fruit_draw
 leak.update = fruit_update
 
+-- carrot
+carrot = new_type(23)
+carrot.collected_sprite = 24
+carrot.solid = false
+carrot.draw = fruit_draw
+carrot.update = fruit_update
+
 -- BACKGROUND
 moon = new_type(0)
 moon.solid = false
@@ -74,7 +81,7 @@ function moon.draw(self)
 end
 
 -- UI
-valid_ui = new_type(40)
+valid_ui = new_type(44)
 valid_ui.solid = false
 valid_ui.life = 30
 
@@ -84,12 +91,12 @@ function valid_ui.update(self)
 	if self.life == 0 then self.destroyed = true end
 end
 
-invalid_ui = new_type(56)
+invalid_ui = new_type(45)
 invalid_ui.solid = false
 invalid_ui.life = 30
 invalid_ui.update = valid_ui.update
 
---
+-- text with lifetime
 text = new_type(0)
 text.solid = false
 text.life = 500
@@ -110,7 +117,7 @@ function text.draw(self)
 	end
 end
 
---
+-- texting printing level name at start of the level
 textc = new_type(0)
 textc.solid = false
 textc.text = ""
@@ -125,8 +132,6 @@ end
 function textc.draw(self)
 	print_centered(self.text, self.offset_x, cam.y + self.y + 1, 9)
 	print_centered(self.text, -self.offset_x, cam.y + self.y, 7)
-	-- print(self.text, cam.x + self.x + 1, cam.y + self.y + 1, 0)
-	-- print(self.text, cam.x + self.x, cam.y + self.y, 8)
 end
 
 -- PARTICLES
@@ -137,16 +142,16 @@ particles = {}
 -- size
 -- x / y
 -- color
-function spawn_particles(nb,s,x,y,c)
+function spawn_particles(nb,size,x,y,color)
 	for i=1,flr(nb) do
-        add(particles, make_particle(s,x,y,c))
+        add(particles, make_particle(size,x,y,color))
 	end
 end
 
-function make_particle(s,x,y,c)
+function make_particle(size,x,y,color)
 	local p={
-		s=s or 1,
-		c=c or 7,
+		size=size or 1,
+		color=color or 7,
 		x=x,y=y,k=k,
 		t=0, t_max=16+flr(rnd(4)),
 		dx=rnd(2)-1,dy=-rnd(3),
@@ -158,16 +163,16 @@ function make_particle(s,x,y,c)
 end
 
 function draw_particle(a)
-	circfill(a.x,a.y,a.s,a.c)
+	circfill(a.x,a.y,a.size,a.color)
 end
 
 function update_particle(a)
-	if a.s>=1 and a.t%4==0 then a.s-=1 end
-	if a.t%2==0 then
-		a.dy+=a.ddy
-		a.x+=a.dx
-		a.y+=a.dy
+	if a.size >= 1 and a.t % 4 == 0 then a.size -=1 end
+	if a.t % 2 == 0 then
+		a.dy += a.ddy
+		a.x += a.dx
+		a.y += a.dy
 	end
-	a.t+=1
-	if (a.t==a.t_max) del(particles, a)
+	a.t += 1
+	if (a.t == a.t_max) del(particles, a)
 end

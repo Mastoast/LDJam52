@@ -13,4 +13,6 @@ All notable changes to this project will be documented in this file.
  - Reworked music of level 1
  - Reworked music of level 2
  - Reworked menu navigation bindings
+ - Reworked plants particles
+ - Reworked collection validation ui elements
  - Added Changelog (hi there)

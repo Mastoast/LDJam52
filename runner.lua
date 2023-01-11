@@ -8,6 +8,8 @@ runner.jump_force = -2.9
 runner.gravity = 0.20
 runner.action_spr = 6
 runner.grid_count = 0
+-- validation ui elements distance to the player
+runner.marks_y_offset = -8
 
 function runner.init(self)
     self.speed_x = 1
@@ -54,7 +56,6 @@ function runner.update(self)
     if self.flr and (btnp(⬆️) or buffured_jump) then
         self.speed_y = self.jump_force
         buffured_jump = false
-        --sfx(2, -1, 8, 8)
     end
     -- gravity
     if self.speed_y > 0 then
@@ -70,63 +71,91 @@ function runner.update(self)
 
     -- harvest :)
     -- can optimize
+
+    -- melons
     if btnp(⬅️) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
             if (o.base == melon) and not o.collected and self:overlaps(o) then
                 o.collected = true
-                spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
+                spawn_particles(3 + rnd(4), 3, o.x, o.y, 3)
                 success = true
                 break
             end
         end
         if success then
-            create(valid_ui, self.x, self.y)
+            create(valid_ui, self.x, self.y + self.marks_y_offset)
             score_count += 300
             incr_combo()
         else
-            create(invalid_ui, self.x, self.y)
+            create(invalid_ui, self.x, self.y + self.marks_y_offset)
             score_count = max(score_count - 50, 0)
             combo_count = 0
         end
     end
 
+    -- leaks
     if btnp(➡️) then
         local success = false
         self.end_anim_time = gtime + self.anim_time
         for o in all(objects) do
             if (o.base == leak) and not o.collected and self:overlaps(o) then
                 o.collected = true
-                spawn_particles(4 + rnd(3), 3, o.x, o.y, 4)
+                spawn_particles(3 + rnd(4), 4, o.x, o.y, 4)
                 success = true
                 break
             end
         end
         if success then
-            create(valid_ui, self.x, self.y)
+            create(valid_ui, self.x, self.y + self.marks_y_offset)
             score_count += 300
             incr_combo()
         else
-            create(invalid_ui, self.x, self.y)
+            create(invalid_ui, self.x, self.y + self.marks_y_offset)
             score_count = max(score_count - 50, 0)
             combo_count = 0
         end
     end
 
+    -- apples
     if not self.flr then
         for o in all(objects) do
             if (o.base == apple) and not o.collected and self:overlaps(o) then
                 o.collected = true
-                spawn_particles(4 + rnd(3), 3, o.x, o.y, 8)
-                --sfx(2, -1, 0, 8)
-                create(valid_ui, self.x, self.y)
+                spawn_particles(3 + rnd(3), 4, o.x, o.y, 8)
+                create(valid_ui, self.x, self.y + self.marks_y_offset)
                 score_count += 300
                 incr_combo()
                 break
             end
         end
     end
+
+    -- carrots
+    if btnp(⬇️) then
+        local success = false
+        self.end_anim_time = gtime + self.anim_time
+        for o in all(objects) do
+            if (o.base == carrot) and not o.collected and self:overlaps(o) then
+                o.collected = true
+                spawn_particles(3 + rnd(3), 4, o.x, o.y, 9)
+                success = true
+                printable = gtime%2
+                break
+            end
+        end
+        if success then
+            create(valid_ui, self.x, self.y + self.marks_y_offset)
+            score_count += 300
+            incr_combo()
+        else
+            create(invalid_ui, self.x, self.y + self.marks_y_offset)
+            score_count = max(score_count - 50, 0)
+            combo_count = 0
+        end
+    end
+
 end
 
 function runner.draw(self)

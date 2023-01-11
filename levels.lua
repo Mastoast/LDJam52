@@ -39,7 +39,7 @@ level_3.start_music = 18
 level_3.ch_mask = 7
 level_3.speed = 16
 level_3.events = {{x = 0, y = 32}, {x = 0, y = 33}, {x = 0, y = 34}}
-level_3.event_offset = 32
+level_3.event_offset = 16
 level_3.best_score = -1
 level_3.max_score = -1
 level_3.saved_score = -1
@@ -81,6 +81,10 @@ function init_level(level)
         tuto3.text = "➡️ => "
         tuto3.spr = leak.spr
         tuto3.life = 530
+        -- tuto4 = create(text, 20, 50)
+        -- tuto4.text = "⬇️ => "
+        -- tuto4.spr = carrot.spr
+        -- tuto4.life = 530
     end
 
     -- gen objects from map
@@ -96,6 +100,8 @@ function init_level(level)
                 create(melon, i*pixels_per_row + x_offset, ground_limit - melon.hit_h)
             elseif mget(i, y) == apple.spr then
                 create(apple, i*pixels_per_row + x_offset, ground_limit - 2*8 - apple.hit_h)
+            elseif mget(i, y) == carrot.spr then
+                create(carrot, i*pixels_per_row + x_offset, ground_limit - carrot.hit_h)
             end
         end
         event_list_count += 1

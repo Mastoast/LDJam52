@@ -123,6 +123,9 @@ function draw_menu()
         print("➡️ => ", 11, 61, 0)
         print("➡️ => ", 10, 60, (btn(➡️) and 8) or 7)
         spr(leak.spr, 35, 59)
+        -- print("⬇️ => ", 11, 71, 0)
+        -- print("⬇️ => ", 10, 70, (btn(⬇️) and 8) or 7)
+        -- spr(carrot.spr, 35, 69)
 
         print("<= TRY IT !", 60, 51, 0)
         print("<= TRY IT !", 60, 50, 8)
@@ -196,7 +199,7 @@ function update_level()
             if current_level.max_score <= 0 then -- we are not barbarians
                 local max_score_counter = 0
                 for o in all(objects) do
-                    if o.base == leak or o.base == melon or o.base == apple then
+                    if o.base == leak or o.base == melon or o.base == apple or o.base == carrot then
                         max_score_counter += 300
                     end
                 end
