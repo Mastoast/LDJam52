@@ -19,7 +19,7 @@ function fruit_update(self)
 	if not self.collected and not self.missed and current_runner.x > self.x + self.hit_w then
 		self.missed = true
 		create(invalid_ui, self.x, self.y)
-		score_count = max(score_count - 100, 0)
+		score_count = max(score_count + missed_plant_score_count, 0)
 		combo_count = 0
 	end
 end

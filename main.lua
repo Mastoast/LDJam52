@@ -7,6 +7,10 @@ function _init()
     cam = {x = 0, y = 0}
     printable = 0
     level_list = {level_0, level_1, level_2}
+    -- if level score > 32 768 it goes negative !!
+    collected_plant_score_count = 150
+    missed_plant_score_count = -50
+    wrong_input_score_count = -25
     --
     selected_level = 0
     new_highscore = false
@@ -44,7 +48,6 @@ end
     -- more backgrounds in rythm ?? (sspr)
 
 -- Levels
-    -- 3 level rework phase 2 (more diversity)
     -- 4 with carrots
 
 function _update60()
@@ -199,7 +202,7 @@ function update_level()
                 local max_score_counter = 0
                 for o in all(objects) do
                     if o.base == leak or o.base == melon or o.base == apple or o.base == carrot then
-                        max_score_counter += 300
+                        max_score_counter += collected_plant_score_count
                     end
                 end
                 current_level.max_score = max_score_counter

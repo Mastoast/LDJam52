@@ -86,11 +86,11 @@ function runner.update(self)
         end
         if success then
             create(valid_ui, self.x, self.y + self.marks_y_offset)
-            score_count += 300
+            score_count += collected_plant_score_count
             incr_combo()
         else
             create(invalid_ui, self.x, self.y + self.marks_y_offset)
-            score_count = max(score_count - 50, 0)
+            score_count = max(score_count + wrong_input_score_count, 0)
             combo_count = 0
         end
     end
@@ -109,11 +109,11 @@ function runner.update(self)
         end
         if success then
             create(valid_ui, self.x, self.y + self.marks_y_offset)
-            score_count += 300
+            score_count += collected_plant_score_count
             incr_combo()
         else
             create(invalid_ui, self.x, self.y + self.marks_y_offset)
-            score_count = max(score_count - 50, 0)
+            score_count = max(score_count + wrong_input_score_count, 0)
             combo_count = 0
         end
     end
@@ -125,7 +125,7 @@ function runner.update(self)
                 o.collected = true
                 spawn_particles(3 + rnd(3), 4, o.x, o.y, 8)
                 create(valid_ui, self.x, self.y + self.marks_y_offset)
-                score_count += 300
+                score_count += collected_plant_score_count
                 incr_combo()
                 break
             end
@@ -147,11 +147,11 @@ function runner.update(self)
         end
         if success then
             create(valid_ui, self.x, self.y + self.marks_y_offset)
-            score_count += 300
+            score_count += collected_plant_score_count
             incr_combo()
         else
             create(invalid_ui, self.x, self.y + self.marks_y_offset)
-            score_count = max(score_count - 50, 0)
+            score_count = max(score_count + wrong_input_score_count, 0)
             combo_count = 0
         end
     end
