@@ -12,6 +12,11 @@ function _init()
     selected_level = 0
     init_menu()
     -- init_level(level_2)
+
+    cartdata("mastoast_underharvest_v1")
+    for index = 1, #level_list do
+        level_list[index].best_score = (dget(index) == 0 and -1) or dget(index) 
+    end
 end
 
 function init_menu()
@@ -22,7 +27,12 @@ function init_menu()
     cam.y = 0
     objects = {}
     particles = {}
+    -- stop every current sounds
+    sfx(-1)
     music(-1)
+    -- remove level menu items
+    menuitem(1)
+    menuitem(2)
 end
 
 -- TODO
@@ -66,7 +76,6 @@ function update_menu()
             selected_level = (selected_level - 1)%#level_list
         end
         if btnp(❎) then
-            sfx(1, 2, 0, 8)
             init_level(level_list[selected_level+1])
         end
     else
@@ -113,9 +122,6 @@ function draw_menu()
 
         print("<= TRY IT !", 60, 51, 0)
         print("<= TRY IT !", 60, 50, 8)
-        
-        print("🅾️ => return to menu", 11, 81, 0)
-        print("🅾️ => return to menu", 10, 80, (btn(🅾️) and 8) or 7)
 
         print_centered("❎ back to menu", 1, 116, 0)
         print_centered("❎ back to menu", 0, 115, 7)
@@ -178,16 +184,11 @@ function update_level()
 
 
     if gstate != 2 then
-        -- restart
-        if btnp(🅾️) then
-            --init_level(current_level)
-            init_menu()
-        end
-
         --end of music
         if stat(54) == -1 then
             sfx(1, 0, 8, 8)
             gstate = 2
+            -- compute score
             local max_score_counter = 0
             for o in all(objects) do
                 if o.base == leak or o.base == melon or o.base == apple then
@@ -196,6 +197,8 @@ function update_level()
             end
             current_level.max_score = max_score_counter
             current_level.best_score = max(current_level.best_score, score_count)
+            -- save high score to persistent data
+            dset(find_item_table_index(current_level, level_list), current_level.best_score)
         end
     end
 
@@ -275,4 +278,11 @@ end
 -- random range
 function rrnd(min, max)
     return flr(min + rnd(max - min))
+end
+
+function find_item_table_index(item, table)
+    for k, v in pairs(table) do
+        if v == item then return k end
+    end
+    return 0
 end

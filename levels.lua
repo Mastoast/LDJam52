@@ -43,6 +43,9 @@ function init_level(level)
     ground_limit = 96
     create(moon, 95, 25)
     --
+    menuitem(1, "Restart level", function() init_level(current_level) end)
+    menuitem(2, "Return to menu", function() init_menu() end)
+    --
     current_runner = create(runner, 24 + debug_pattern_offset*8*32, 88)
     local title = create(textc, 64, 56)
     title.text = level.name
@@ -81,5 +84,6 @@ function init_level(level)
         end
         event_list_count += 1
     end
+    sfx(1, 2, 0, 8)
     music(level.start_music + debug_pattern_offset, 0, level.ch_mask)
 end
