@@ -33,6 +33,17 @@ level_2.best_score = -1
 level_2.max_score = -1
 level_2.saved_score = -1
 
+level_3 = {}
+level_3.name = "Level 3"
+level_3.start_music = 18
+level_3.ch_mask = 7
+level_3.speed = 16
+level_3.events = {{x = 0, y = 32}, {x = 0, y = 33}, {x = 0, y = 34}}
+level_3.event_offset = 32
+level_3.best_score = -1
+level_3.max_score = -1
+level_3.saved_score = -1
+
 function init_level(level)
     current_level = level
     debug_pattern_offset = debug_pattern_offset or 0
@@ -48,7 +59,7 @@ function init_level(level)
     create(moon, 95, 25)
     --
     menuitem(1, "Restart level", function() init_level(current_level) end)
-    menuitem(2, "Return to menu", function() init_menu() end)
+    menuitem(2, "Back to menu", function() init_menu() end)
     new_highscore = false
     --
     current_runner = create(runner, 24 + debug_pattern_offset*8*32, 88)

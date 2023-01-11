@@ -14,6 +14,7 @@ function runner.init(self)
     self.state = 1
     self.end_anim_time = 0
     self.grid_count = 0
+    self.buffured_jump = false
 end
 
 function runner.update(self)
@@ -50,13 +51,15 @@ function runner.update(self)
         self.flr = true
     end
     -- jump
-    if self.flr and btnp(⬆️) then
+    if self.flr and (btnp(⬆️) or buffured_jump) then
         self.speed_y = self.jump_force
+        buffured_jump = false
         --sfx(2, -1, 8, 8)
     end
     -- gravity
     if self.speed_y > 0 then
-        self.speed_y += self.gravity*4
+        self.speed_y += self.gravity * 4
+        if btnp(⬆️) then buffured_jump = true end
     else
         self.speed_y += self.gravity
     end

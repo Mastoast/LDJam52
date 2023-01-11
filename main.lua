@@ -13,7 +13,7 @@ function _init()
     init_menu()
     -- DEBUG
     debug_pattern_offset = 0
-    --init_level(level_0)
+    --init_level(level_3)
 
     -- load previous high scores
     cartdata("mastoast_underharvest_v1")
@@ -41,11 +41,8 @@ end
 -- TODO
 -- visuals + feedback
     -- clouds
-    -- more effects on better scores
     -- more backgrounds in rythm ?? (sspr)
-
--- Other
-    -- buffer Jump input
+    -- more effects on better scores
 
 -- Levels
     -- 3 level phase 2
