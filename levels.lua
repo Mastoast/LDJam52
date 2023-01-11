@@ -9,6 +9,7 @@ level_0.event_offset = 64
 level_0.best_score = -1
 -- maximum possible score on level
 level_0.max_score = -1
+level_0.saved_score = -1
 
 level_1 = {}
 level_1.name = "Level 1"
@@ -19,6 +20,7 @@ level_1.events = {{x = 0, y = 22}, {x = 0, y = 23}}
 level_1.event_offset = 64
 level_1.best_score = -1
 level_1.max_score = -1
+level_1.saved_score = -1
 
 level_2 = {}
 level_2.name = "Level 2"
@@ -29,9 +31,11 @@ level_2.events = {{x = 0, y = 27}, {x = 0, y = 28}, {x = 0, y = 29}}
 level_2.event_offset = 64
 level_2.best_score = -1
 level_2.max_score = -1
+level_2.saved_score = -1
 
 function init_level(level)
     current_level = level
+    debug_pattern_offset = debug_pattern_offset or 0
     gtime = 0
     gstate = 1
     combo_count = 0
@@ -45,6 +49,7 @@ function init_level(level)
     --
     menuitem(1, "Restart level", function() init_level(current_level) end)
     menuitem(2, "Return to menu", function() init_menu() end)
+    new_highscore = false
     --
     current_runner = create(runner, 24 + debug_pattern_offset*8*32, 88)
     local title = create(textc, 64, 56)

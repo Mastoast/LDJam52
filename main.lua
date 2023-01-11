@@ -1,21 +1,24 @@
 function _init()
     gtime = 0
-    gstate = 0 -- 0-menu | 1-level | 2-level end
+    gstate = 0 -- 0-menu | 1-level | 2-level ending
     ndeath = 0
     freeze_time = 0
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    debug_pattern_offset = 0
     level_list = {level_0, level_1, level_2}
     --
     selected_level = 0
+    new_highscore = false
     init_menu()
-    -- init_level(level_2)
+    -- DEBUG
+    debug_pattern_offset = 0
+    --init_level(level_0)
 
+    -- load previous high scores
     cartdata("mastoast_underharvest_v1")
     for index = 1, #level_list do
-        level_list[index].best_score = (dget(index) == 0 and -1) or dget(index) 
+        level_list[index].saved_score = (dget(index) == 0 and -1) or dget(index) 
     end
 end
 
@@ -38,7 +41,11 @@ end
 -- TODO
 -- visuals + feedback
     -- clouds
+    -- more effects on better scores
     -- more backgrounds in rythm ?? (sspr)
+
+-- Other
+    -- buffer Jump input
 
 -- Levels
     -- 3 level phase 2
@@ -137,9 +144,9 @@ function draw_menu()
             or lvl.name
             print_centered(lvl_label, 1, 41 + 8*incr, 0)
             print_centered(lvl_label, 0, 40 + 8*incr, 7)
-            if lvl.best_score>0 and lvl.max_score>0 then
-                print(flr((lvl.best_score/lvl.max_score)*100).."%", 101, 41 + 8*incr, 8)
-                print(flr((lvl.best_score/lvl.max_score)*100).."%", 100, 40 + 8*incr, 7)
+            if lvl.saved_score > 0 then
+                print(lvl.saved_score.."%", 101, 41 + 8*incr, 8)
+                print(lvl.saved_score.."%", 100, 40 + 8*incr, 7)
             end
             incr += 1
         end
@@ -189,16 +196,22 @@ function update_level()
             sfx(1, 0, 8, 8)
             gstate = 2
             -- compute score
-            local max_score_counter = 0
-            for o in all(objects) do
-                if o.base == leak or o.base == melon or o.base == apple then
-                    max_score_counter += 300
+            if current_level.max_score <= 0 then -- we are not barbarians
+                local max_score_counter = 0
+                for o in all(objects) do
+                    if o.base == leak or o.base == melon or o.base == apple then
+                        max_score_counter += 300
+                    end
                 end
+                current_level.max_score = max_score_counter
             end
-            current_level.max_score = max_score_counter
-            current_level.best_score = max(current_level.best_score, score_count)
+            current_level.best_score = max(score_count, current_level.best_score)
+            local last_ratio = flr((current_level.best_score/current_level.max_score)*100)
+            if last_ratio > current_level.saved_score then new_highscore = true end
+            current_level.saved_score = max(last_ratio, current_level.saved_score)
             -- save high score to persistent data
-            dset(find_item_table_index(current_level, level_list), current_level.best_score)
+            local lvl_index = find_item_table_index(current_level, level_list)
+            dset(lvl_index, current_level.saved_score)
         end
     end
 
@@ -258,6 +271,11 @@ function draw_level()
         print_centered("Level cleared : "..flr((score_count/current_level.max_score)*100).."%", 0, cam.y + 62, 7)
         print_centered("best combo : "..best_combo, 1, cam.y + 71, 8)
         print_centered("best combo : "..best_combo, 0, cam.y + 70, 7)
+
+        if new_highscore and gtime % 128 < 64 then
+            print_centered("new highscore !", 1, cam.y + 86, 8)
+            print_centered("new highscore !", 0, cam.y + 85, 7)
+        end
         --
         print_centered("❎ back to menu", 1, 116, 0)
         print_centered("❎ back to menu", 0, 115, 7)
