@@ -45,8 +45,8 @@ end
     -- more effects on better scores
 
 -- Levels
-    -- 3 level phase 2
-    -- 4 ??
+    -- 3 level rework phase 2 (more diversity)
+    -- 4 with carrots
 
 function _update60()
     -- timers
