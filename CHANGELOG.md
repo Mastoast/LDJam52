@@ -1,10 +1,10 @@
 # changelog
 All notable changes to this project will be documented in this file.
 
-## 1.0.0 - Jam version - 08-01-2023
+## 1.0.0 - Jam version - 08/01/2023
  - Initial release
 
-## 1.1.0 - Post jam - update from feedback - 11-01-2023
+## 1.1.0 - Post jam - update from feedback - 11/01/2023
  - Added "level restart" and "back to menu" options from the pause menu during a level
  - Added jump buffer to help jumping multiple times in a short period of time
  - Added persistent data storage for level scorings
@@ -17,5 +17,6 @@ All notable changes to this project will be documented in this file.
  - Reworked collection validation ui elements
  - Added Changelog (hi there)
 
-## 1.2.0 - 
+## 1.2.0 - 13/01/2023
+ - Added an extra level with a 4th direction to press
  - Added visual rewards on perfect score

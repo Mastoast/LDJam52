@@ -35,11 +35,11 @@ level_2.saved_score = -1
 
 level_3 = {}
 level_3.name = "Level 3"
-level_3.start_music = 18
+level_3.start_music = 28
 level_3.ch_mask = 7
 level_3.speed = 16
 level_3.events = {{x = 0, y = 32}, {x = 0, y = 33}, {x = 0, y = 34}}
-level_3.event_offset = 16
+level_3.event_offset = 64
 level_3.best_score = -1
 level_3.max_score = -1
 level_3.saved_score = -1
@@ -68,23 +68,23 @@ function init_level(level)
     title.life = 320
 
     -- tutorial
-    if true then
-        tuto1 = create(text, 20, 20)
-        tuto1.text = "⬆️ => "
-        tuto1.spr = apple.spr
-        tuto1.life = 510
-        tuto2 = create(text, 20, 30)
-        tuto2.text = "⬅️ => "
-        tuto2.spr = melon.spr
-        tuto2.life = 520
-        tuto3 = create(text, 20, 40)
-        tuto3.text = "➡️ => "
-        tuto3.spr = leak.spr
-        tuto3.life = 530
-        -- tuto4 = create(text, 20, 50)
-        -- tuto4.text = "⬇️ => "
-        -- tuto4.spr = carrot.spr
-        -- tuto4.life = 530
+    tuto1 = create(text, 20, 20)
+    tuto1.text = "⬆️ => "
+    tuto1.spr = apple.spr
+    tuto1.life = 510
+    tuto2 = create(text, 20, 30)
+    tuto2.text = "⬅️ => "
+    tuto2.spr = melon.spr
+    tuto2.life = 520
+    tuto3 = create(text, 20, 40)
+    tuto3.text = "➡️ => "
+    tuto3.spr = leak.spr
+    tuto3.life = 530
+    if level == level_3 then
+        tuto4 = create(text, 20, 50)
+        tuto4.text = "⬇️ => "
+        tuto4.spr = carrot.spr
+        tuto4.life = 530
     end
 
     -- gen objects from map
@@ -106,6 +106,6 @@ function init_level(level)
         end
         event_list_count += 1
     end
-    sfx(1, 2, 0, 8)
+    sfx(1, 3, 0, 8)
     music(level.start_music + debug_pattern_offset, 0, level.ch_mask)
 end

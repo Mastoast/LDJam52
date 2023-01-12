@@ -43,12 +43,7 @@ function init_menu()
 end
 
 -- TODO
--- visuals + feedback
-    -- clouds
-    -- more backgrounds in rythm ?? (sspr)
-
--- Levels
-    -- 4 with carrots
+-- Level 4 with carrots
 
 function _update60()
     -- timers
