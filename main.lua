@@ -6,11 +6,11 @@ function _init()
     shake = 0
     cam = {x = 0, y = 0}
     printable = 0
-    level_list = {level_0, level_1, level_2}
+    level_list = {level_0, level_1, level_2, level_3}
     -- if level score > 32 768 it goes negative !!
-    collected_plant_score_count = 150
-    missed_plant_score_count = -50
-    wrong_input_score_count = -25
+    collected_plant_score_count = 125
+    missed_plant_score_count = -40
+    wrong_input_score_count = -20
     --
     selected_level = 0
     new_highscore = false
@@ -148,8 +148,8 @@ function draw_menu()
             incr += 1
         end
 
-        print_centered("⬇️ how to play ⬇️", 1, 71, 0)
-        print_centered("⬇️ how to play ⬇️", 0, 70, 7)
+        print_centered("⬇️ how to play ⬇️", 1, 76, 0)
+        print_centered("⬇️ how to play ⬇️", 0, 75, 7)
 
         if gtime %128 > 32 then 
             print_centered(" press ❎ to start ", 1, 115, 1)
