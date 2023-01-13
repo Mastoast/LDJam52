@@ -38,7 +38,7 @@ level_3.name = "Level 3"
 level_3.start_music = 28
 level_3.ch_mask = 7
 level_3.speed = 16
-level_3.events = {{x = 0, y = 32}, {x = 0, y = 33}, {x = 0, y = 34}}
+level_3.events = {{x = 0, y = 32}, {x = 0, y = 33}, {x = 0, y = 34}, {x = 0, y = 35}}
 level_3.event_offset = 64
 level_3.best_score = -1
 level_3.max_score = -1
