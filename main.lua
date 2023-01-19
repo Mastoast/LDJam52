@@ -42,9 +42,6 @@ function init_menu()
     menuitem(2)
 end
 
--- TODO
--- Level 4 with carrots
-
 function _update60()
     -- timers
     gtime += 1
